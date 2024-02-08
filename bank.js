@@ -37,11 +37,11 @@ const main = async () => {
     console.log("");
   }
 
-  // {
-  //   // deposition
-  //   const coins = await contractPrecompile.deposition(wallet.address);
-  //   console.log("query user ", wallet.address, " deposit balance ", JSON.stringify(coins));
-  // }
+  {
+    // query balance
+    const coins = await contractPrecompile.balance(wallet.address, "aethos");
+    console.log(`query user ${wallet.address} has aethos balance ${JSON.stringify(coins)}`);
+  }
 };
 
 main();
