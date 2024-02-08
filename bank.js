@@ -20,6 +20,19 @@ const main = async () => {
   const contractPrecompile = new ethers.Contract(PRECOMPILE_ADDRESS, ABI, wallet);
 
   {
+    // query balance
+    const coins = await contractPrecompile.balance(wallet.address, "aethos");
+    console.log(`query user ${wallet.address} has aethos balance ${JSON.stringify(coins)}`);
+  }
+
+  {
+    // query allBalances
+    const pageRequest = ["0x00", 0, 100, true, true];
+    const data = await contractPrecompile.allBalances(wallet.address, pageRequest);
+    console.log(`query user ${wallet.address} has aethos balance ${JSON.stringify(data)}`);
+  }
+
+  {
     // send
     console.log("send coins(8ethos) to another address");
     console.log("before from user ", wallet.address, " have balance ", await provider.getBalance(wallet.address));
@@ -35,12 +48,6 @@ const main = async () => {
     console.log("after to user ", TO_ADDRESS, " have balance ", await provider.getBalance(TO_ADDRESS));
 
     console.log("");
-  }
-
-  {
-    // query balance
-    const coins = await contractPrecompile.balance(wallet.address, "aethos");
-    console.log(`query user ${wallet.address} has aethos balance ${JSON.stringify(coins)}`);
   }
 };
 
